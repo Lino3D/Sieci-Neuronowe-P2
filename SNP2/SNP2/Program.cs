@@ -5,20 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using FANNCSharp;
 using FANNCSharp.Float;
+using static SNP2.ProgramController;
 
 namespace SNP2
 {
     class Program
     {
+
+
         static void Main(string[] args)
         {
-            uint[] layers = { 2, 3, 1 };
-            NeuralNet net = new NeuralNet(NetworkType.LAYER, layers);
-            
-            net.RandomizeWeights(0, 1);
-            net.TrainOnFile("data.dat", 100, 1, (float)0.0001);
-            net.Save("NN.net");
+            ProgramController controller = new ProgramController();
+            controller.InitializeSimpleNN();
+
+            int MinDistance = 8;
+            controller.InitializeKMeansTest(new Mixed(), false, MinDistance);
+            controller.InitializeKMeansTest(new Zwierzakowo(), false, MinDistance);
+            controller.InitializeKMeansTest(new Plagiarized(), false, MinDistance);
+
+
             Console.ReadLine();
         }
+
+
+
+
     }
 }
