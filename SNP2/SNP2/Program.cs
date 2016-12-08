@@ -18,11 +18,11 @@ namespace SNP2
             ProgramController controller = new ProgramController();
             controller.InitializeSimpleNN();
 
-            int MinDistance = 8;
+            int MinDistance = 5;
             controller.InitializeKMeansTest(new Mixed(), false, MinDistance);
             controller.InitializeKMeansTest(new Zwierzakowo(), false, MinDistance);
             controller.InitializeKMeansTest(new Plagiarized(), false, MinDistance);
-
+            controller.InitializeKMeansTest(new Balladyna(), false, MinDistance);
 
             Console.ReadLine();
         }

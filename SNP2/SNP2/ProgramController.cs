@@ -150,5 +150,26 @@ namespace SNP2
 
             }
         }
+
+        public class Balladyna : IResourceProvider
+        {
+            public string ResourceFile1
+            {
+                get
+                {
+                    return "./Resource/balladyna1.txt";
+                }
+
+            }
+
+            public string ResourceFile2
+            {
+                get
+                {
+                    return "./Resource/balladyna2.txt";
+                }
+
+            }
+        }
     }
 }
