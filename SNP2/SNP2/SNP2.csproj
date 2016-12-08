@@ -53,6 +53,7 @@
     <Compile Include="Clustering\Algorithm.cs" />
     <Compile Include="Clustering\Cluster.cs" />
     <Compile Include="IResourceProvider.cs" />
+    <Compile Include="NeuralNetwork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
