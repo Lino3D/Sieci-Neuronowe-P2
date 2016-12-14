@@ -50,9 +50,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BaseAttribute.cs" />
+    <Compile Include="Classes\Document.cs" />
+    <Compile Include="Classes\MeanLengthLeastUsed.cs" />
+    <Compile Include="Classes\MeanLengthLongestWords.cs" />
+    <Compile Include="Classes\MeanLengthMostUsed.cs" />
+    <Compile Include="Classes\MeanLengthShortestWords.cs" />
+    <Compile Include="Classes\MeanWordLength.cs" />
+    <Compile Include="Classes\MultipleUsageOfIdenticalWords.cs" />
+    <Compile Include="Classes\NumberOfMostWords.cs" />
+    <Compile Include="Classes\SaveDataToFile.cs" />
     <Compile Include="Clustering\Algorithm.cs" />
     <Compile Include="Clustering\Cluster.cs" />
-    <Compile Include="IResourceProvider.cs" />
+    <Compile Include="Interfaces\IAttribute.cs" />
+    <Compile Include="Interfaces\IDocument.cs" />
+    <Compile Include="Interfaces\IResourceProvider.cs" />
     <Compile Include="NeuralNetwork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramController.cs" />
@@ -91,6 +103,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\FANNCSharp-x64.0.1.8\build\FANNCSharp-x64.targets" Condition="Exists('..\packages\FANNCSharp-x64.0.1.8\build\FANNCSharp-x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

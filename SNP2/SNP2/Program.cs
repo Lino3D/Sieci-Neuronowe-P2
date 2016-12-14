@@ -16,14 +16,16 @@ namespace SNP2
         static void Main(string[] args)
         {
             ProgramController controller = new ProgramController();
+            
+
+            //int MinDistance = 3;
+            //controller.InitializeKMeansTest(new Mixed(), false, MinDistance);
+            //controller.InitializeKMeansTest(new Zwierzakowo(), false, MinDistance);
+            //controller.InitializeKMeansTest(new Plagiarized(), false, MinDistance);
+            //controller.InitializeKMeansTest(new Balladyna(), false, MinDistance);
+
+          //  controller.InitializeDocuments(new Mixed());
             controller.InitializeSimpleNN();
-
-            int MinDistance = 3;
-            controller.InitializeKMeansTest(new Mixed(), false, MinDistance);
-            controller.InitializeKMeansTest(new Zwierzakowo(), false, MinDistance);
-            controller.InitializeKMeansTest(new Plagiarized(), false, MinDistance);
-            controller.InitializeKMeansTest(new Balladyna(), false, MinDistance);
-
             Console.ReadLine();
         }
 

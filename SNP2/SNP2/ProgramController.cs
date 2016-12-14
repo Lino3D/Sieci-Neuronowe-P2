@@ -1,5 +1,6 @@
 ﻿using FANNCSharp;
 using FANNCSharp.Double;
+using SNP2.Classes;
 using SNP2.Clustering;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,39 @@ namespace SNP2
         public void InitializeSimpleNN()
         {
             // self organizing map
-            uint[] layers = { 2, 3, 1 };
+            uint[] layers = { 14, 3, 1 };
             NeuralNet net = new NeuralNet(NetworkType.LAYER, layers);
 
             
 
             net.RandomizeWeights(0, 1);
-            net.TrainOnFile("data.dat", 1000, 1, (float)0.0001);
+            net.TrainOnFile("test.dat", 1000, 1, (float)0.0001);
             net.Save("NN.net");
         }
+
+        public void InitializeDocuments(IResourceProvider resProvider)
+        {
+            ReadTexts(resProvider);
+            Document doc1 = new Document(WorkText1);
+            Document doc2 = new Document(WorkText2);
+
+            doc1.CalculateAttributes();
+            doc2.CalculateAttributes();
+
+            doc1.CalculateAttributes(doc2);
+            //doc2.CalculateAttributes(doc1);
+
+
+            SaveDataToFile save = new SaveDataToFile();
+        save.SaveDocument("test", doc1, doc2, true);
+            
+
+
+            string dupa = "";
+
+
+        }
+
 
         public void InitializeKMeansTest(IResourceProvider resProvider, bool printcomparison, int min = 5)
         {
