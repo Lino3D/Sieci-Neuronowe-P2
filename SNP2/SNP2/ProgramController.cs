@@ -19,6 +19,8 @@ namespace SNP2
 
         public void InitializeSimpleNN()
         {
+            // result shoudl be 0, ZERO, like not divide by it, im tired...
+            double[] testarr = new double[] { 1, 12.2, 11.2, 1.2, 4.361111, 5, 56, 1, 13.4, 25, 1.2, 4.17817, 5, 125 };
             // self organizing map
             uint[] layers = { 14, 3, 1 };
             NeuralNet net = new NeuralNet(NetworkType.LAYER, layers);
@@ -26,8 +28,17 @@ namespace SNP2
             
 
             net.RandomizeWeights(0, 1);
-            net.TrainOnFile("test.dat", 1000, 1, (float)0.0001);
+            net.TrainOnFile("test.dat", 10000, 1, (float)0.0001);
             net.Save("NN.net");
+
+
+            var error = net.Test(testarr, new double[] { 0 });
+            Console.WriteLine(error[0].ToString());
+        }
+
+        public void TryStartSimpleNN()
+        {
+            
         }
 
         public void InitializeDocuments(IResourceProvider resProvider)
@@ -40,11 +51,11 @@ namespace SNP2
             doc2.CalculateAttributes();
 
             doc1.CalculateAttributes(doc2);
-            //doc2.CalculateAttributes(doc1);
+            doc2.CalculateAttributes(doc1);
 
 
             SaveDataToFile save = new SaveDataToFile();
-        save.SaveDocument("test", doc1, doc2, true);
+        save.SaveDocument("test", doc1, doc2, false);
             
 
 
@@ -163,7 +174,7 @@ namespace SNP2
             {
                 get
                 {
-                    return "./Resource/spidersweb1.txt";
+                    return "./Resource/Doc1.txt";
                 }
 
             }
@@ -172,7 +183,7 @@ namespace SNP2
             {
                 get
                 {
-                    return "./Resource/zwierzakowo2.txt";
+                    return "./Resource/Doc2.txt";
                 }
 
             }

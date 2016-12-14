@@ -24,7 +24,7 @@ namespace SNP2
             //controller.InitializeKMeansTest(new Plagiarized(), false, MinDistance);
             //controller.InitializeKMeansTest(new Balladyna(), false, MinDistance);
 
-          //  controller.InitializeDocuments(new Mixed());
+          // controller.InitializeDocuments(new Mixed());
             controller.InitializeSimpleNN();
             Console.ReadLine();
         }

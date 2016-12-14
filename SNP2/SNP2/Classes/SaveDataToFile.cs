@@ -16,10 +16,10 @@ namespace SNP2.Classes
 
             int AttributeCount = doc1.Attirbutes.Count() + doc2.Attirbutes.Count();
             using (System.IO.StreamWriter file =
-           new System.IO.StreamWriter($"{FileName}.dat"))
+           new System.IO.StreamWriter($"{FileName}.dat",true))
             {
-                file.WriteLine($"2 {AttributeCount} 1");
-              
+                //    file.WriteLine($"2 {AttributeCount} 1");
+                file.WriteLine();
                 foreach (var item in doc1.Attirbutes)
                 {
                     file.Write(item.GetValue() + " ");

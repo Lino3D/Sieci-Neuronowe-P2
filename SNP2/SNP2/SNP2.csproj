@@ -79,6 +79,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="test.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\balladyna2.txt">
