@@ -18,8 +18,15 @@ namespace SNP2
 
         public void InitializeSimpleNN()
         {
-            NeuralNetwork nn = new NeuralNetwork();
-            nn.InitializeNN();
+            // self organizing map
+            uint[] layers = { 2, 3, 1 };
+            NeuralNet net = new NeuralNet(NetworkType.LAYER, layers);
+
+            
+
+            net.RandomizeWeights(0, 1);
+            net.TrainOnFile("data.dat", 1000, 1, (float)0.0001);
+            net.Save("NN.net");
         }
 
         public void InitializeKMeansTest(IResourceProvider resProvider, bool printcomparison, int min = 5)
@@ -131,7 +138,7 @@ namespace SNP2
             {
                 get
                 {
-                    return "./Resource/text2.txt";
+                    return "./Resource/spidersweb1.txt";
                 }
 
             }
