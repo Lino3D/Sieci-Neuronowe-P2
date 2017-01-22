@@ -17,6 +17,8 @@ namespace SNP2
         List<Cluster> ClustersText1;
         List<Cluster> ClustersText2;
         int MinDistance = 7;
+        private List<Document> Docs1;
+        private List<Document> Docs2;
 
         public void InitializeSimpleNN()
         {
@@ -133,8 +135,8 @@ namespace SNP2
         public void ReadEverything()
         {
             FolderResourceProvider provider = new FolderResourceProvider("./Resource /", "rofl");
-            var Docs1 = new List<Document>();
-            var Docs2 = new List<Document>();
+            Docs1 = new List<Document>();
+            Docs2 = new List<Document>();
             foreach (var docString in provider.FirstFolderDocuments)
             {
                 Docs1.Add(new Document(docString));
@@ -147,6 +149,8 @@ namespace SNP2
             Docs1.ForEach(x=>x.CalculateAttributes());
             Docs2.ForEach(x => x.CalculateAttributes());
         }
+
+       
     }
    
 }

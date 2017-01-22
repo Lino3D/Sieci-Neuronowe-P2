@@ -10,13 +10,19 @@ namespace SNP2.Classes
     {
         public override void CalculateValue(Document doc)
         {
-            int mean = 0;
+           float mean = 0;
+            MinValue = doc.TextWords.Select(x => x.Count()).Min();
+            MaxValue = doc.TextWords.Select(x => x.Count()).Max();
             foreach (var word in doc.TextWords)
             {
-                mean += word.Length;
+                if (MaxValue != MinValue)
+                    mean += (word.Length - MaxValue) / (MaxValue - MinValue);
             }
-            
-            Value = (float) mean / doc.TextWords.Length;
+
+            mean = (mean - MaxValue) / (MaxValue - MinValue);
+
+
+            Value = Math.Abs(mean / doc.TextWords.Length);
         }
     }
 }

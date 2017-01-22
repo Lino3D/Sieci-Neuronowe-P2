@@ -9,9 +9,18 @@ namespace SNP2.Classes
     {
         public override void CalculateValue(Document doc)
         {
-            var MostCommonWords = doc.UniqueWords.OrderByDescending(x => x.Value).Take(NumOfWords);
-            int sum = MostCommonWords.Sum(x => x.Value);
-            Value = (float)sum / NumOfWords;
+            var mostCommonWords = doc.UniqueWords.OrderByDescending(x => x.Value).Take(5).Select(x => x.Value).ToList();
+            float sum = 0;
+            MinValue = mostCommonWords.Min();
+            MaxValue = mostCommonWords.Max();
+
+            foreach (var VARIABLE in mostCommonWords)
+            {
+                if (MaxValue != MinValue)
+                    sum += (VARIABLE - MaxValue) / (MaxValue - MinValue);
+            }
+
+            Value = Math.Abs(sum / NumOfWords);
         }
     }
 }

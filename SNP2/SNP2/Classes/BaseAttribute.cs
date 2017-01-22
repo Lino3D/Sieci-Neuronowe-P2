@@ -10,6 +10,9 @@ namespace SNP2.Classes
     {
         public float Value;
         public int NumOfWords = 5;
+        public float MinValue = float.MinValue;
+        public float MaxValue = float.MaxValue;
+        //public float SumOfValues = 0;
 
         public float GetValue()
         {
