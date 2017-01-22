@@ -62,6 +62,7 @@
     <Compile Include="Classes\SaveDataToFile.cs" />
     <Compile Include="Clustering\Algorithm.cs" />
     <Compile Include="Clustering\Cluster.cs" />
+    <Compile Include="Classes\FolderResourceProvider.cs" />
     <Compile Include="Interfaces\IAttribute.cs" />
     <Compile Include="Interfaces\IDocument.cs" />
     <Compile Include="Interfaces\IResourceProvider.cs" />

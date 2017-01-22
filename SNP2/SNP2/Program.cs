@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,12 @@ namespace SNP2
             //controller.InitializeKMeansTest(new Balladyna(), false, MinDistance);
 
           // controller.InitializeDocuments(new Mixed());
-            controller.InitializeSimpleNN();
+            //controller.InitializeSimpleNN();
+
+            //var files = Directory.GetFiles("./Resource/");
+
+
+            controller.ReadEverything();
             Console.ReadLine();
         }
 
