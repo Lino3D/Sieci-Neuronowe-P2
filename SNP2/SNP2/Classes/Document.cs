@@ -36,7 +36,8 @@ namespace SNP2.Classes
             {
                 foreach (var item in attributeslist)
                 {
-                    item.SetIndex(attributeslist.IndexOf(item));
+                    var index = ParagraphAttributesList.IndexOf(attributeslist);
+                    item.SetIndex(index);
                     item.CalculateValue(this);
                     
                 }
