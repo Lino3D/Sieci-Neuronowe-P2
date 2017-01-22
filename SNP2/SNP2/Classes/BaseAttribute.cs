@@ -9,6 +9,7 @@ namespace SNP2.Classes
     public abstract class BaseAttribute : IAttribute
     {
         public float Value;
+        public int ParagraphIndex;
         public int NumOfWords = 5;
         public float MinValue = float.MinValue;
         public float MaxValue = float.MaxValue;
@@ -27,6 +28,10 @@ namespace SNP2.Classes
         {
             return;
         }
-        
+
+        public void SetIndex(int index)
+        {
+            ParagraphIndex = index;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace SNP2.Classes
     {
         public override void CalculateValue(Document doc)
         {
-            foreach (var paragraphUniqueWords in doc.UniqueWords)
+            var paragraphUniqueWords = doc.UniqueWords[ParagraphIndex];
             {
                 var mostCommonWords =
                     paragraphUniqueWords.OrderByDescending(x => x.Key.Count()).Select(x => x.Key).Take(NumOfWords).ToList();

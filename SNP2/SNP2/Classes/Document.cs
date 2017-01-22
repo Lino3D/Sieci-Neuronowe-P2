@@ -30,6 +30,20 @@ namespace SNP2.Classes
             }
         }
 
+        public void CalculateParagraphAttributes()
+        {
+            foreach (var attributeslist in ParagraphAttributesList)
+            {
+                foreach (var item in attributeslist)
+                {
+                    item.SetIndex(attributeslist.IndexOf(item));
+                    item.CalculateValue(this);
+                    
+                }
+            }
+
+        }
+
         public void CalculateAttributes(Document SecondDocument)
         {
             foreach (var item in Attirbutes)
@@ -89,18 +103,21 @@ namespace SNP2.Classes
             int count;
             foreach (var list in TextWords)
             {
+                var dictionary = new Dictionary<string, int>();
                 foreach (var item in list)
                 {
-                    foreach (var dictionary in UniqueWords)
-                    {
+                    
+                    //foreach (var dictionary in UniqueWords)
+                    //{
                         if (!dictionary.ContainsKey(item))
                         {
                             count = list.Count(x => x == item);
                             dictionary.Add(item, count);
                         }
-                    }
-                   
+                   // }
                 }
+                //if(dictionary.Count>0)
+                UniqueWords.Add(dictionary);
             }
         }
 
@@ -119,7 +136,19 @@ namespace SNP2.Classes
         {
             foreach (var pargraph in Paragraphs)
             {
-                ParagraphAttributesList.Add(Attirbutes);
+
+                var tempList = new List<IAttribute>();
+                tempList.Add(new MeanLengthLeastUsed());
+                tempList.Add(new MeanLengthLongestWords());
+                tempList.Add(new MeanLengthMostUsed());
+                tempList.Add(new MeanLengthShortestWords());
+                tempList.Add(new MeanWordLength());
+                tempList.Add(new MultipleUsageOfIdenticalWords());
+                //tempList.Add(new NumberOfMostWords());
+
+
+                ParagraphAttributesList.Add(tempList);
+
             }
         }
 

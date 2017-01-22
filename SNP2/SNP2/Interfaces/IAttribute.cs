@@ -12,5 +12,7 @@ namespace SNP2.Interfaces
         void CalculateValue(Document doc);
         float GetValue();
 
+        void SetIndex(int index);
+
     }
 }
