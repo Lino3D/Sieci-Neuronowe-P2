@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Classes\BaseAttribute.cs" />
     <Compile Include="Classes\Document.cs" />
-    <Compile Include="Classes\MeanLengthLeastUsed.cs" />
+    <Compile Include="Classes\MeanSentenceLength.cs" />
     <Compile Include="Classes\MeanLengthLongestWords.cs" />
     <Compile Include="Classes\MeanLengthMostUsed.cs" />
     <Compile Include="Classes\MeanLengthShortestWords.cs" />

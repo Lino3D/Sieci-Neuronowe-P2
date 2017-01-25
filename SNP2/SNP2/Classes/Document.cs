@@ -1,6 +1,7 @@
 ﻿using SNP2.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
@@ -22,6 +23,8 @@ namespace SNP2.Classes
 
         public string[] Paragraphs;
 
+        public Dictionary<Type, float> MeanAttributes = new Dictionary<Type, float>();
+
         public void CalculateAttributes()
         {
             foreach (var item in Attirbutes)
@@ -29,7 +32,16 @@ namespace SNP2.Classes
                 item.CalculateValue(this);
             }
         }
+        public void CalculateMeanAttributes()
+        {
 
+            int NumberOfParagraphs = ParagraphAttributesList.Count();
+            foreach (var attribute in ParagraphAttributesList.FirstOrDefault())
+            {
+                var res = ParagraphAttributesList.Select(x => x.FirstOrDefault(y => y.GetType() == attribute.GetType()).GetValue()).Sum() / NumberOfParagraphs;
+                MeanAttributes.Add(attribute.GetType(),res);
+            }
+        }
         public void CalculateParagraphAttributes()
         {
             foreach (var attributeslist in ParagraphAttributesList)
@@ -42,9 +54,7 @@ namespace SNP2.Classes
                     
                 }
             }
-
         }
-
         public void CalculateAttributes(Document SecondDocument)
         {
             foreach (var item in Attirbutes)
@@ -57,7 +67,7 @@ namespace SNP2.Classes
         {
             var paragraphMarker = "";
              Paragraphs = _Text.Split(new string[] { "\r\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
-            Paragraphs = Paragraphs.Where(x => x.Length > 10).ToArray();
+            Paragraphs = Paragraphs.Where(x => x.Length > 30).ToArray();
             Text = _Text;
             //var tmp = RemoveSpecialCharacters(Text);
             //var editedText = tmp.ToLowerInvariant();
@@ -124,7 +134,7 @@ namespace SNP2.Classes
 
         private void InitialzieAttributes()
         {
-            Attirbutes.Add(new MeanLengthLeastUsed());
+            Attirbutes.Add(new MeanSentenceLength());
             Attirbutes.Add(new MeanLengthLongestWords());
             Attirbutes.Add(new MeanLengthMostUsed());
             Attirbutes.Add(new MeanLengthShortestWords());
@@ -139,7 +149,7 @@ namespace SNP2.Classes
             {
 
                 var tempList = new List<IAttribute>();
-                tempList.Add(new MeanLengthLeastUsed());
+                tempList.Add(new MeanSentenceLength());
                 tempList.Add(new MeanLengthLongestWords());
                 tempList.Add(new MeanLengthMostUsed());
                 tempList.Add(new MeanLengthShortestWords());

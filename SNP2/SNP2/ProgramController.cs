@@ -147,8 +147,13 @@ namespace SNP2
             }
 
             Docs1.ForEach(x=>x.CalculateAttributes());
-            Docs2.ForEach(x => x.CalculateAttributes());
+          //  Docs2.ForEach(x => x.CalculateAttributes());
             Docs1.ForEach(x=>x.CalculateParagraphAttributes());
+
+            Docs1.ForEach(x=>x.CalculateMeanAttributes());
+
+
+
         }
 
        
