@@ -24,6 +24,14 @@ namespace SNP2
         List<IONode> nodes;
         float PlagiarismThreshold = 0.5f;
 
+        public void InitializeDocumentWithoutSerialization()
+        {
+            docControl = new DocumentController();
+            docControl.InitializeDocuments();
+            docControl.CalculateDocumentsDeviation();
+            CreateNodes();
+        }
+
         public void InitializeDocument()
         {
           
@@ -109,7 +117,7 @@ namespace SNP2
             trainingData.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).Take((int)nodes.Count / 2).ToArray());
             trainingData.SaveTrain("Dane Treningowe.txt");
 
-            net.TrainOnData(trainingData, 10000, 1, (float)0.0000001);
+            net.TrainOnData(trainingData, 50000, 200, (float)0.0000001);
 
 
             TrainingData testData = new TrainingData();

@@ -30,9 +30,9 @@ namespace SNP2
 
             //var files = Directory.GetFiles("./Resource/");
 
-
-            controller.InitializeDocument();
-            controller.CreateNodes();
+            InitializeDocumentWithoutSerialization
+            //controller.InitializeDocument();
+            //controller.CreateNodes();
             controller.InitializeNNForDocuments();
             Console.ReadLine();
         }
