@@ -5,11 +5,12 @@ using System.Text;
 
 namespace SNP2.Classes
 {
+    [Serializable]
     public class IONode
     {
         public double [] input;
         public double [] output;
-
+                
         public IONode(List<float> _input, float expectedOutput)
         {
             input = _input.Select(x=> (double) x).ToArray();

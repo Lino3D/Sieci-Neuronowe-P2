@@ -15,8 +15,7 @@ namespace SNP2.Classes
 
         public DocumentController()
         {
-            InitializeDocuments();
-            CalculateDocumentsDeviation();
+           
         }
 
         public void InitializeDocuments()
