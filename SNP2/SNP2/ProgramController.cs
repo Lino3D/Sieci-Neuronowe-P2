@@ -104,14 +104,20 @@ namespace SNP2
             uint[] layers = { (uint)nodes.FirstOrDefault().input.Count(), 5, 1 };
             NeuralNet net = new NeuralNet(NetworkType.LAYER, layers);
             net.RandomizeWeights(0, 1);
-            TrainingData td = new TrainingData();
+            TrainingData trainingData = new TrainingData();
 
-            td.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).ToArray());
+            trainingData.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).Take((int)nodes.Count / 2).ToArray());
+            trainingData.SaveTrain("Dane Treningowe.txt");
 
-            net.TrainOnData(td, 10000, 1, (float)0.0000001);
+            net.TrainOnData(trainingData, 10000, 1, (float)0.0000001);
 
-            //        net.Save("NN.net");
 
+            TrainingData testData = new TrainingData();
+            testData.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).Reverse().Take((int)nodes.Count / 2).ToArray());
+
+            testData.SaveTrain("Dane Testowe");
+
+            net.TestData(testData);
 
             var error = net.Test(nodes.FirstOrDefault().input, nodes.FirstOrDefault().output);
             Console.WriteLine(error[0].ToString());
