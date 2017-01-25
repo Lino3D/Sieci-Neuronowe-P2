@@ -17,7 +17,7 @@ namespace SNP2
         static void Main(string[] args)
         {
             ProgramController controller = new ProgramController();
-            
+
 
             //int MinDistance = 3;
             //controller.InitializeKMeansTest(new Mixed(), false, MinDistance);
@@ -25,13 +25,15 @@ namespace SNP2
             //controller.InitializeKMeansTest(new Plagiarized(), false, MinDistance);
             //controller.InitializeKMeansTest(new Balladyna(), false, MinDistance);
 
-          // controller.InitializeDocuments(new Mixed());
+            // controller.InitializeDocuments(new Mixed());
             //controller.InitializeSimpleNN();
 
             //var files = Directory.GetFiles("./Resource/");
 
 
-            controller.ReadEverything();
+            controller.InitializeDocument();
+            controller.CreateNodes();
+            controller.InitializeNNForDocuments();
             Console.ReadLine();
         }
 

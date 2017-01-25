@@ -6,6 +6,7 @@ using System.Text;
 
 namespace SNP2.Classes
 {
+    [Serializable]
     public abstract class BaseAttribute : IAttribute
     {
         public float Value;

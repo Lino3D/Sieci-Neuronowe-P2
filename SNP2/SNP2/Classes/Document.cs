@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace SNP2.Classes
 {
+    [Serializable]
     public class Document
     {
         public string Text = "";
@@ -25,6 +26,12 @@ namespace SNP2.Classes
 
         public Dictionary<Type, float> MeanAttributes = new Dictionary<Type, float>();
 
+        // *** Statistical Measures ***
+        public int MostDeviatedParagraphNumber;
+        public float MostDeviationValue;
+        public float StandardDeviation;
+        // **************************
+
         public void CalculateAttributes()
         {
             foreach (var item in Attirbutes)
@@ -34,7 +41,6 @@ namespace SNP2.Classes
         }
         public void CalculateMeanAttributes()
         {
-
             int NumberOfParagraphs = ParagraphAttributesList.Count();
             foreach (var attribute in ParagraphAttributesList.FirstOrDefault())
             {
@@ -138,8 +144,8 @@ namespace SNP2.Classes
             Attirbutes.Add(new MeanLengthLongestWords());
             Attirbutes.Add(new MeanLengthMostUsed());
             Attirbutes.Add(new MeanLengthShortestWords());
-            Attirbutes.Add(new MeanWordLength());
-            Attirbutes.Add(new MultipleUsageOfIdenticalWords());
+         //   Attirbutes.Add(new MeanWordLength());
+        //    Attirbutes.Add(new MultipleUsageOfIdenticalWords());
             Attirbutes.Add(new NumberOfMostWords());
         }
 
@@ -153,8 +159,8 @@ namespace SNP2.Classes
                 tempList.Add(new MeanLengthLongestWords());
                 tempList.Add(new MeanLengthMostUsed());
                 tempList.Add(new MeanLengthShortestWords());
-                tempList.Add(new MeanWordLength());
-                tempList.Add(new MultipleUsageOfIdenticalWords());
+             //   tempList.Add(new MeanWordLength());
+                //tempList.Add(new MultipleUsageOfIdenticalWords());
                 //tempList.Add(new NumberOfMostWords());
 
 

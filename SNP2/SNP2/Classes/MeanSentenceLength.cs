@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SNP2.Classes
 {
+    [Serializable]
     public class MeanSentenceLength : BaseAttribute
     {
         public override void CalculateValue(Document doc)
