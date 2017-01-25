@@ -28,11 +28,11 @@ namespace SNP2
         {
           
             bool Okay = true;
-            FileStream fs2 = new FileStream("DataFile.dat", FileMode.Open);
+            FileStream fs2 = new FileStream(@"C:\MyTemp\nodes.dat", FileMode.Open);
             try
             {
                 BinaryFormatter formatter2 = new BinaryFormatter();
-                docControl = (DocumentController)formatter2.Deserialize(fs2);
+                nodes = (List<IONode>)formatter2.Deserialize(fs2);
             }
             catch (SerializationException e)
             {
@@ -46,13 +46,16 @@ namespace SNP2
             if (Okay == false)
             {
                 docControl = new DocumentController();
+                docControl.InitializeDocuments();
+                docControl.CalculateDocumentsDeviation();
+                CreateNodes();
 
-                FileStream fs = new FileStream("DataFile.dat", FileMode.Create);
+                FileStream fs = new FileStream(@"C:\MyTemp\nodes.dat", FileMode.Create);
                 // Construct a BinaryFormatter and use it to serialize the data to the stream.
                 BinaryFormatter formatter = new BinaryFormatter();
                 try
                 {
-                    formatter.Serialize(fs, docControl);
+                    formatter.Serialize(fs, nodes);
                 }
                 catch (Exception e)
                 {
@@ -101,20 +104,14 @@ namespace SNP2
             uint[] layers = { (uint)nodes.FirstOrDefault().input.Count(), 5, 1 };
             NeuralNet net = new NeuralNet(NetworkType.LAYER, layers);
             net.RandomizeWeights(0, 1);
-            TrainingData trainingData = new TrainingData();
-            
-            trainingData.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).Take((int)nodes.Count/2).ToArray());
-            trainingData.SaveTrain("Dane Treningowe.txt");
+            TrainingData td = new TrainingData();
 
-            net.TrainOnData(trainingData, 10000, 1, (float)0.0000001);
+            td.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).ToArray());
 
+            net.TrainOnData(td, 10000, 1, (float)0.0000001);
 
-            TrainingData testData = new TrainingData();
-            testData.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).Reverse().Take((int)nodes.Count/2).ToArray());
+            //        net.Save("NN.net");
 
-            testData.SaveTrain("Dane Testowe");
-
-            net.TestData(testData);
 
             var error = net.Test(nodes.FirstOrDefault().input, nodes.FirstOrDefault().output);
             Console.WriteLine(error[0].ToString());
