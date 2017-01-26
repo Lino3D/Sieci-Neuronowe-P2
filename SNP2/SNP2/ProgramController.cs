@@ -22,7 +22,7 @@ namespace SNP2
         int MinDistance = 7;
         DocumentController docControl;
         List<IONode> nodes;
-        float PlagiarismThreshold = 0.5f;
+        float PlagiarismThreshold = 3.0f;
 
         public void InitializeDocumentWithoutSerialization()
         {
@@ -31,12 +31,12 @@ namespace SNP2
             docControl.CalculateDocumentsDeviation();
             CreateNodes();
         }
-
+         string filename = @"Resource\nodes.dat";
         public void InitializeDocument()
         {
           
             bool Okay = true;
-            FileStream fs2 = new FileStream(@"C:\MyTemp\nodes.dat", FileMode.Open);
+            FileStream fs2 = new FileStream(filename, FileMode.Open);
             try
             {
                 BinaryFormatter formatter2 = new BinaryFormatter();
@@ -58,7 +58,7 @@ namespace SNP2
                 docControl.CalculateDocumentsDeviation();
                 CreateNodes();
 
-                FileStream fs = new FileStream(@"C:\MyTemp\nodes.dat", FileMode.Create);
+                FileStream fs = new FileStream(filename, FileMode.Create);
                 // Construct a BinaryFormatter and use it to serialize the data to the stream.
                 BinaryFormatter formatter = new BinaryFormatter();
                 try
@@ -84,6 +84,7 @@ namespace SNP2
 
         public void CreateNodes()
         {
+            double mean = (double)docControl.Docs.Select(x => x.MostDeviationValue).Sum() / (double)docControl.Docs.Count();
             nodes = new List<IONode>();
             float isPlagiarised;
             List<float> Input;
@@ -108,28 +109,44 @@ namespace SNP2
 
         public void InitializeNNForDocuments()
         {
+           // int count = nodes.Where(x => x.output.First() ==  1.0).Count();           
             // self organizing map
             uint[] layers = { (uint)nodes.FirstOrDefault().input.Count(), 5, 1 };
             NeuralNet net = new NeuralNet(NetworkType.LAYER, layers);
             net.RandomizeWeights(0, 1);
             TrainingData trainingData = new TrainingData();
 
-            trainingData.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).Take((int)nodes.Count / 2).ToArray());
-            trainingData.SaveTrain("Dane Treningowe.txt");
+            trainingData.SetTrainData(nodes.Select(x => x.input).Take((int)nodes.Count/2).ToArray(), nodes.Select(x => x.output).Take((int)nodes.Count / 2).ToArray());
+            trainingData.SaveTrain("Dane Treningowe.dat");
 
             net.TrainOnData(trainingData, 50000, 200, (float)0.0000001);
 
 
             TrainingData testData = new TrainingData();
-            testData.SetTrainData(nodes.Select(x => x.input).ToArray(), nodes.Select(x => x.output).Reverse().Take((int)nodes.Count / 2).ToArray());
+            testData.SetTrainData(nodes.Select(x => x.input).Reverse().Take((int)nodes.Count/2).ToArray(), nodes.Select(x => x.output).Reverse().Take((int)nodes.Count / 2).ToArray());
 
-            testData.SaveTrain("Dane Testowe");
+            testData.SaveTrain("Dane Testowe.dat");
 
-            net.TestData(testData);
+            Console.WriteLine("Wynik testowania: " + net.TestData(testData));
 
             var error = net.Test(nodes.FirstOrDefault().input, nodes.FirstOrDefault().output);
-            Console.WriteLine(error[0].ToString());
+            Console.WriteLine("Wymagany output: " + nodes.FirstOrDefault().output[0]+ " ,a uzyskany output: "+error[0].ToString());
+
+
+            int num = 0;
+            int counter = 0;
+            for( int i = nodes.Count()/2; i< nodes.Count();i++)
+            {
+                var o = nodes.ElementAt(i).output.First();
+                var res = net.Test(nodes.ElementAt(i).input, nodes.ElementAt(i).output).First();
+                if ( res == o)
+                    num++;
+                counter++;
+            }
+            string domek = num.ToString();
         }
+
+        
 
         public void InitializeSimpleNN()
         {
